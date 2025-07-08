@@ -22,4 +22,3 @@ RUN pip install -r requirements.txt
 
 # Comando por defecto
 CMD ["python", "Aplicacion/monitoreo.py"]
-
