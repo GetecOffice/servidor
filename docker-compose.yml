@@ -3,19 +3,20 @@ version: '3.9'
 services:
   web:
     build: .
-    container_name: valmo_web
-    restart: always
+    command: gunicorn Servidor.wsgi:application --bind 0.0.0.0:8000
     ports:
-      - "8080:8080"
-    env_file:
-      - .env  # Si estás usando un archivo .env para tus variables
+      - "8000:8000"
+    depends_on:
+      - db
+
+  monitor:
+    build: .
+    command: python Aplicacion/monitoreo.py
     depends_on:
       - db
 
   db:
     image: mysql:8.0
-    container_name: valmo_db
-    restart: always
     environment:
       MYSQL_DATABASE: valmo_db
       MYSQL_USER: valmo_user
